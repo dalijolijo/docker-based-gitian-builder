@@ -8,16 +8,16 @@
 4. Building for Mac requires [this step](#building-binaries-for-mac-os-x) to be completed
 5. Run the convenience scripts in this repo:
 
-For building Bitcoin for ALL platforms and architectures in one command:
+For building Bitcore (BTX) for ALL platforms and architectures in one command:
 ```bash
-$ bash build_all_the_things.sh # optionally include a branch/tag and repo url e.g. bash build_all_the_things segwit2x https://github.com/btc1/bitcoin
+$ bash build_all_the_things.sh # optionally include a branch/tag and repo url e.g. bash build_all_the_things <version-tag> https://github.com/LIMXTEC/BitCore.git
 ```
 Once complete, proceed to [step 8](#step8).
 
 For building individual platforms:
 ```bash
 $ bash ./build_builder.sh # installs the base virtual machine (ubuntu 12.04 trusty) and dependencies, takes 5-10 minutes
-$ bash ./run_builder.sh # builds bitcoin itself per the argument to the CMD instruction in Dockerfile, takes 30+ minutes
+$ bash ./run_builder.sh # builds bitcore (btx) itself per the argument to the CMD instruction in Dockerfile, takes 30+ minutes
 ```
 
 Repeat the process for Windows and MacOSX targets (these will take less time because common dependencies are cached):
@@ -28,7 +28,7 @@ Repeat the process for Windows and MacOSX targets (these will take less time bec
 $ nano Dockerfile # use a text editor that you are comfortable with
 ```
 
-6. Change the gitian descriptor in the 'CMD' line (it might say ../bitcoin/contrib/gitian-descriptors/gitian-linux.yml currently) to: ../bitcoin/contrib/gitian-descriptors/gitian-osx.yml or ../bitcoin/contrib/gitian-descriptors/gitian-win.yml
+6. Change the gitian descriptor in the 'CMD' line (it might say ../bitcore/contrib/gitian-descriptors/gitian-linux.yml currently) to: ../bitcore/contrib/gitian-descriptors/gitian-osx.yml or ../bitcore/contrib/gitian-descriptors/gitian-win.yml
 7. Save the file and rerun:
 
 ```bash
@@ -55,7 +55,7 @@ $ bash move_and_sign_manifest.sh
 $ gpg -b gitian.sigs/<version>/<name>/<manifest yml>
 ```
 
-11. You should have 2 files in the manifest directory, the manifest itself, e.g. `bitcoin-linux-#.#.#.yml`, and the detached digital signature, e.g. `bitcoin-linux-#.#.#.yml.sig`.
+11. You should have 2 files in the manifest directory, the manifest itself, e.g. `bitcore-linux-#.#.#.yml`, and the detached digital signature, e.g. `bitcore-linux-#.#.#.yml.sig`.
 12. Commit those directories back to your fork and create a merge request against the master branch of the original project.
 13. If there are other gitian builds done prior to yours, for the same version, compare your manifest file to theirs. They should be the same set of hashes.
 14. All the binaries built during this process are located in result/out.
@@ -76,7 +76,7 @@ This project allows you to build software deterministically. In other words, eac
 
 Deterministic builds produce final binaries that, when hashed, always produce the same hash for all subsequent builds for a given set of inputs. Of the writing of this README, most all build chains produce binaries non-deterministically. The main reason is the inclusion of time stamps and other meta information into the artifact. The gitian-builder project seeks to remove these differences.
 
-To highlight this issue, if you were to compile bitcoin core from source using [these directions](https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md) and then repeat the process a few minutes later and then took a hash of the resulting binaries, they would be different, why? All the same software was used as inputs, Bitcoin itself was pointed to the same tag, what's the problem? The problem is that certain software dependenices of Bitcoin insert meta data like timestamps and file directory paths into the final binary. Therefore, a binary produced at time A will be different than a binary produced at time B. The Debian project has an ambitious project to retroactively patch packages in their archive to enable them to produce deterministic builds. This is a tall order because of the breadth of changes across many packages. Here is the current [status](https://tests.reproducible-builds.org/debian/index_issues.html). Until this project is complete, we need a project such as this one.
+To highlight this issue, if you were to compile bitcore core from source using [these directions](https://github.com/LIMXTEC/BitCore/blob/0.15/doc/build-unix.md) and then repeat the process a few minutes later and then took a hash of the resulting binaries, they would be different, why? All the same software was used as inputs, Bitcore (BTX) itself was pointed to the same tag, what's the problem? The problem is that certain software dependenices of Bitcore (BTX) insert meta data like timestamps and file directory paths into the final binary. Therefore, a binary produced at time A will be different than a binary produced at time B. The Debian project has an ambitious project to retroactively patch packages in their archive to enable them to produce deterministic builds. This is a tall order because of the breadth of changes across many packages. Here is the current [status](https://tests.reproducible-builds.org/debian/index_issues.html). Until this project is complete, we need a project such as this one.
 
 ### The current challenge
 It turns out that distributing software has many security-related challenges. One of the main concerns is protecting software from being _tampered with_ before execution on end-users' computer systems.
