@@ -27,7 +27,7 @@ check_mac () {
   fi
 }
 
-fall_back_branch_or_tag="0.15.1.0"
+fall_back_branch_or_tag="0.15"
 branch_or_tag=
 if [ -z "${1}" ]; then
   branch_or_tag=`get_latest_tag`
@@ -57,5 +57,5 @@ for platform in "${platforms[@]}"; do
   builder \
   "${branch_or_tag}" \
   "${repo}" \
-  "../BitCore/contrib/gitian-descriptors/gitian-${platform}.yml"
+  "../bitcore/contrib/gitian-descriptors/gitian-${platform}.yml"
 done
