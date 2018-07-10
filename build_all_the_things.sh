@@ -57,5 +57,5 @@ for platform in "${platforms[@]}"; do
   builder \
   "${branch_or_tag}" \
   "${repo}" \
-  "../bitcore/contrib/gitian-descriptors/gitian-${platform}.yml"
+  "../BitCore/contrib/gitian-descriptors/gitian-${platform}.yml"
 done
