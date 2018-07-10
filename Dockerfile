@@ -3,7 +3,7 @@ FROM ubuntu:trusty
 MAINTAINER dalijolijo
 
 ENV VERSION "0.15.1.0"
-USER root
+USER ubuntu
 ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /shared
 
