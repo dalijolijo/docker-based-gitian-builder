@@ -35,5 +35,5 @@ RUN printf "[[ -d /shared/bitcore ]] || \
     cd /shared/gitian-builder; \
     ./bin/gbuild --skip-image --commit bitcore=\$1 --url bitcore=\$2 \$3" > /home/ubuntu/runit.sh
 
-CMD ["${VERSION},"https://github.com/LIMXTEC/BitCore.git","../bitcore/contrib/gitian-descriptors/gitian-linux.yml"]
+CMD ["0.15.1","https://github.com/LIMXTEC/BitCore.git","../bitcore/contrib/gitian-descriptors/gitian-linux.yml"]
 ENTRYPOINT ["bash", "/home/ubuntu/runit.sh"]
