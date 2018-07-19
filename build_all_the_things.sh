@@ -23,7 +23,8 @@ get_latest_tag () {
 check_mac () {
   if [[ "${1}" == "osx" ]] && [[ ! -f "$THISDIR/cache/MacOSX10.11.sdk.tar.gz" ]]; then
     echo -e "${magenta}MacOSX10.11.sdk.tar.gz does not exist in cache therefore OSX build not available.${reset}"
-    exit -1
+#    exit -1
+# avoid exit if OSX not available
   fi
 }
 
@@ -51,7 +52,7 @@ for platform in "${platforms[@]}"; do
   check_mac "${platform}"
   sdate=`date +%s`
   echo -e "${cyan}starting $platform build of tag: ${branch_or_tag} at: `date`${reset}"
-  time docker run -h builder --name builder-$sdate \
+  time docker run --rm -h builder --name builder-$sdate \
   -v $THISDIR/cache:/shared/cache:Z \
   -v $THISDIR/result:/shared/result:Z \
   builder \
