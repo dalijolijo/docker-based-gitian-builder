@@ -17,6 +17,9 @@ RUN apt-get update && \
       rsync \
       sudo
 
+#RUN apt-get install -y gcc-multilib g++-multilib
+RUN apt-get install -y gcc-4.8-multilib g++-4.8-multilib
+
 RUN apt-get -yq purge grub > /dev/null 2>&1 || true && \
     apt-get -y dist-upgrade
 
@@ -39,7 +42,6 @@ RUN printf "[[ -d /shared/bitcore ]] || \
     git clone -b \$1 --depth 1 \$2 /shared/bitcore && \
     cd /shared/gitian-builder; \
     /shared/gitian-builder/bin/gbuild --skip-image --commit bitcore=\$1 --url bitcore=\$2 \$3" > /root/runit.sh
-#RUN echo "[[ -d /shared/bitcore ]] || git clone -b \$1 --depth 1 \$2 /shared/bitcore; cd /shared/gitian-builder; /shared/gitian-builder/bin/gbuild --skip-image --commit bitcore=\$1 --url bitcore=\$2 \$3" > /root/runit.sh
 
 CMD ["0.15","https://github.com/LIMXTEC/BitCore.git","../bitcore/contrib/gitian-descriptors/gitian-linux.yml"]
 ENTRYPOINT ["/bin/bash", "/root/runit.sh"]
